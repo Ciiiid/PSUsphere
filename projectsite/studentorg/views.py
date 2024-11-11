@@ -11,9 +11,12 @@ from studentorg.models import College
 from studentorg.models import Program
 from studentorg.forms import OrganizationForm
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 from typing import Any
 from django.db.models.query import QuerySet
 from django.db.models import Q
+
 
 class OrganizationDeleteView(DeleteView):
     model = Organization
@@ -26,6 +29,7 @@ class OrganizationUpdateView(UpdateView):
     template_name = 'org edit.html'
     success_url = reverse_lazy('organization-list')
     
+@method_decorator(login_required, name='dispatch')
 class HomePageView(ListView):
     model = Organization
     context_object_name = 'home'
@@ -62,6 +66,7 @@ class OrgMemberUpdateView(UpdateView):
     template_name = 'org edit.html'
     success_url = reverse_lazy('orgmember-list')
     
+@method_decorator(login_required, name='dispatch')
 class HomePageView(ListView):
     model = OrgMember
     context_object_name = 'home'
@@ -98,6 +103,7 @@ class StudentUpdateView(UpdateView):
     template_name = 'org edit.html'
     success_url = reverse_lazy('student-list')
     
+@method_decorator(login_required, name='dispatch')
 class HomePageView(ListView):
     model = Student
     context_object_name = 'home'
@@ -126,6 +132,7 @@ class CollegeUpdateView(UpdateView):
     template_name = 'org edit.html'
     success_url = reverse_lazy('college-list')
     
+@method_decorator(login_required, name='dispatch')
 class HomePageView(ListView):
     model = College
     context_object_name = 'home'
@@ -155,6 +162,7 @@ class ProgramUpdateView(UpdateView):
     template_name = 'org edit.html'
     success_url = reverse_lazy('program-list')
     
+@method_decorator(login_required, name='dispatch')
 class HomePageView(ListView):
     model = Program
     context_object_name = 'home'
