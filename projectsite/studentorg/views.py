@@ -8,6 +8,7 @@ from studentorg.models import Organization
 from studentorg.models import OrgMember
 from studentorg.models import Student
 from studentorg.models import College
+from studentorg.models import Program
 from studentorg.forms import OrganizationForm
 from django.urls import reverse_lazy
 
