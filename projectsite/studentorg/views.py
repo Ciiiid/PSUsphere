@@ -11,6 +11,9 @@ from studentorg.models import College
 from studentorg.models import Program
 from studentorg.forms import OrganizationForm
 from django.urls import reverse_lazy
+from typing import Any
+from django.db.models.query import QuerySet
+from django.db.models import Q
 
 class OrganizationDeleteView(DeleteView):
     model = Organization
@@ -33,6 +36,14 @@ class OrganizationList(ListView):
     context_object_name = 'organization'
     template_name = 'org_list.html'
     paginate_by = 5
+    
+    def get_queryset(self, *args, **kwargs):
+        qs = super(OrganizationList, self).get_queryset(*args, **kwargs)
+        if self.request.GET.get("q") != None:
+            query = self.request.GET.get('q')
+            qs = qs.filter(Q(name__icontains=query) |
+                            Q(description__icontains=query))
+        return qs
     
 class OrganizationCreateView(CreateView):
     model = Organization
@@ -61,6 +72,14 @@ class OrgMemberList(ListView):
     context_object_name = 'orgmember'
     template_name = 'org_list.html'
     paginate_by = 5
+    
+    def get_queryset(self, *args, **kwargs):
+        qs = super(OrgMemberList, self).get_queryset(*args, **kwargs)
+        if self.request.GET.get("q") != None:
+            query = self.request.GET.get('q')
+            qs = qs.filter(Q(student__icontains=query) |
+                            Q(organization__icontains=query) | Q(date_joined__icontains=query))
+        return qs
     
 class OrgMemberCreateView(CreateView):
     model = OrgMember
