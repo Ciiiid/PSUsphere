@@ -2174,7 +2174,7 @@ body {
   font-weight: 700;
 }
 .sidebar .nav .nav-item.active a:before {
-  background: #1d7af3;
+  background: #f31d2f;
   opacity: 1 !important;
   position: absolute;
   z-index: 1;
