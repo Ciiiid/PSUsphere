@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-8wtpuzm%=mwifor5glm=2=^u4^u=41h9%=6v4_apy42hl53qf8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['e1cid.pythonanywhere.com']
+ALLOWED_HOSTS = ['e1cid.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -70,10 +70,9 @@ TEMPLATES = [
     },
 ]
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = (BASE_DIR / 'static',
-                    )
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (BASE_DIR / 'static')
 
 WSGI_APPLICATION = 'projectsite.wsgi.application'
 
