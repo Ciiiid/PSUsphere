@@ -1,0 +1,27 @@
+<div class="card-body">
+    <div class="chart-container">
+        <div id="monthlyChart"></div>
+    </div>
+</div>
+
+<!-- Add this script section -->
+<script>
+    // Get the data from Django context
+    const courseData = {{ course_data|json_script:"course-data" }};
+    const courseDataObj = JSON.parse(document.getElementById('course-data').textContent);
+
+    // Update the pie chart
+    Chartist.Pie('#monthlyChart', {
+        labels: courseDataObj.labels,
+        series: courseDataObj.series
+    }, {
+        plugins: [
+            Chartist.plugins.tooltip()
+        ],
+        donut: true,
+        donutWidth: 60,
+        donutSolid: true,
+        startAngle: 270,
+        showLabel: true
+    });
+</script>

@@ -11,9 +11,26 @@ from django.contrib import messages
 from typing import Any
 from django.db.models.query import QuerySet
 from django.db.models import Q
-
+from studentorg.models import Student
+from django.db.models import Count
 
 # Create your views here.
+def dashboard(request):
+    # Get course distribution
+    course_stats = Student.objects.values('course')\
+                                .annotate(count=Count('id'))
+    
+    # Prepare data for the chart
+    course_data = {
+        'labels': [stat['course'] for stat in course_stats],
+        'series': [stat['count'] for stat in course_stats]
+    }
+    
+    context = {
+        'course_data': course_data,
+    
+    }
+    return render(request, 'dashboard.html', context)
 
 @method_decorator(login_required, name='dispatch')
 
